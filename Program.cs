@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DPRN2_U3_A4_ANEA
 {
@@ -19,7 +18,6 @@ namespace DPRN2_U3_A4_ANEA
                 Producto ticketInterface = new Producto(numberOfTickets,numberOfProducts);
                 ticketInterface.mostrarHeaderDelTicket();
                 // ticketInterface.mostrarFinalDelTicket();
-
             }
             catch(IndexOutOfRangeException arrayException)
             {
