@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 namespace DPRN2_U3_A4_ANEA
 {
     class Program
@@ -11,6 +12,7 @@ namespace DPRN2_U3_A4_ANEA
             string c="c. Finalizar venta";
             string d="d. Cancelar venta";
             string e="e. Imprimir ticket";
+            string separador="************************";
             //Este programa debe de pedir el número de tickets y productos 
             System.Console.WriteLine("Ingresar el número de tickets: ");  
             var numeroDeticket = System.Console.ReadLine();
@@ -27,7 +29,7 @@ namespace DPRN2_U3_A4_ANEA
                 eleccion=opcion;
                 //Definimos una lista que guardará datos de tipo String
                 List<string> listaProductos = new List<string>();
-                List<string> listaPrecios = new List<string>();
+                List<float> listaPrecios = new List<float>();
                 while(eleccion=="a"||eleccion=="b"||eleccion=="c"||eleccion=="d"||eleccion=="e"){
                     do
                     {
@@ -39,7 +41,8 @@ namespace DPRN2_U3_A4_ANEA
                                 listaProductos.Add(nombreDelProducto);
                                 System.Console.WriteLine("Por favor ingresa el precio del producto:");
                                 var precioDelProducto= Console.ReadLine();
-                                listaPrecios.Add(precioDelProducto);
+                                float price = float.Parse(precioDelProducto);
+                                listaPrecios.Add(price);
                             break;
                             case "b" when (eleccion=="b"):
                                 System.Console.WriteLine("Procederemos a eliminar elementos del ticket. ");
@@ -63,7 +66,13 @@ namespace DPRN2_U3_A4_ANEA
                                 System.Console.WriteLine("Procederemos a imprimir el ticket.");
                                 Producto ticketInterface = new Producto(numberOfTickets,numberOfProducts);        
                                 ticketInterface.mostrarHeaderDelTicket();
-
+                                //Para que funcione el GroupBy es necesario agregar la librería Linq
+                                System.Console.WriteLine("Nombre        Cantidad ");
+                                foreach(var producto in listaProductos.GroupBy(x => x))
+                                System.Console.WriteLine($"{producto.Key}      {producto.Count()}");
+                                System.Console.WriteLine(separador);
+                                float suma= listaPrecios.Sum();
+                                System.Console.WriteLine("Total:          {0}",suma);
                                 ticketInterface.mostrarFinalDelTicket();
                                 Environment.Exit(0);
                             break;    
@@ -81,7 +90,8 @@ namespace DPRN2_U3_A4_ANEA
                                 listaProductos.Add(nombreDelProducto);
                                 System.Console.WriteLine("Por favor ingresa el precio del producto:");
                                 var precioDelProducto= Console.ReadLine();
-                                listaPrecios.Add(precioDelProducto);
+                                float price = float.Parse(precioDelProducto);
+                                listaPrecios.Add(price);
                             }
                             else if(eleccion=="b"){
                                 System.Console.WriteLine("Eliminaremos un elemento del ticket");
@@ -107,7 +117,13 @@ namespace DPRN2_U3_A4_ANEA
                                 System.Console.WriteLine("Imprimiremos el ticket.");
                                 Producto ticketInterface = new Producto(numberOfTickets,numberOfProducts);        
                                 ticketInterface.mostrarHeaderDelTicket();
-                                 
+                                //Para que funcione el GroupBy es necesario agregar la librería Linq
+                                System.Console.WriteLine("Nombre        Cantidad ");
+                                foreach(var producto in listaProductos.GroupBy(x => x))
+                                System.Console.WriteLine($"{producto.Key}      {producto.Count()}");
+                                System.Console.WriteLine(separador);
+                                float suma= listaPrecios.Sum();
+                                System.Console.WriteLine("Total:          {0}",suma);
                                 ticketInterface.mostrarFinalDelTicket();
                                 Environment.Exit(0);
                             }
@@ -119,6 +135,11 @@ namespace DPRN2_U3_A4_ANEA
             catch(IndexOutOfRangeException arrayException)
             {
                 System.Console.WriteLine(arrayException);
+            }
+            catch(FormatException fe)
+            {
+                System.Console.WriteLine("Escribiste un dato que no es válido: '" + numeroDeticket + "' no es un número.");
+                System.Console.WriteLine(fe);
             }
         }
     }
