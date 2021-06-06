@@ -11,7 +11,7 @@ abstract class Ticket{
     }
     //Método para mostrar país elegido
     public void mostrarHeaderDelTicket(){
-        if(numeroDeTicket>1){
+        if(numeroDeTicket>=1){
             System.Console.WriteLine("          SHOP NAME           ");
             System.Console.WriteLine("  Address: Lorem Ipsum, 23-10 ");
             System.Console.WriteLine("         Telp. 11223344       ");
@@ -23,7 +23,6 @@ abstract class Ticket{
         }
     }
     public abstract int mostrarFinalDelTicket();
-    public abstract int agregarProductos();
     //Interfaz para el pais
     public int DatoTicket{
         get{
